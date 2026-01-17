@@ -4,6 +4,8 @@ Classic Snake game written in C using the **Raylib** and **Raymath** libraries.
 
 The player controls a snake that grows by eating apples. The game ends when the snake collides with the walls or with its own body.
 
+![snake gif](snake.gif)
+
 ## Installation and Usage
 
 1. Install the **Raylib** library by following the official documentation: https://github.com/raysan5/raylib?tab=readme-ov-file#build-and-installation
