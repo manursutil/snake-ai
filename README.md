@@ -1,4 +1,4 @@
-# Snake RL (WIP)
+# Snake AI (WIP)
 
 Work in progress reinforcement learning project for Snake, built in Python with a C engine backend.
 
