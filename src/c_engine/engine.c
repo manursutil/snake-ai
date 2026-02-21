@@ -15,10 +15,7 @@ static Vector2i getApplePosition(void) {
 
 void engine_reset(void) {
     state.snake.length = 1;
-    state.snake.body[0].pos = (Vector2i){
-        (WIDTH / CELL / 2) * CELL,
-        (HEIGHT / CELL / 2) * CELL
-    };
+    state.snake.body[0].pos = (Vector2i){(WIDTH / CELL / 2) * CELL, (HEIGHT / CELL / 2) * CELL};
     state.snake.v = (Velocity){1, 0};
     Vector2i applePos = getApplePosition();
     state.apple.x = (int)applePos.x;
@@ -35,14 +32,24 @@ void engine_init(int seed) {
 }
 
 void engine_step(int action) {
-    if (state.gameOver) return;
+    if (state.gameOver)
+        return;
 
     switch (action) {
-        case 0: state.snake.v = (Velocity){1, 0}; break;
-        case 1: state.snake.v = (Velocity){-1, 0}; break;
-        case 2: state.snake.v = (Velocity){0, -1}; break;
-        case 3: state.snake.v = (Velocity){0, 1}; break;
-        default: break;
+    case 0:
+        state.snake.v = (Velocity){1, 0};
+        break;
+    case 1:
+        state.snake.v = (Velocity){-1, 0};
+        break;
+    case 2:
+        state.snake.v = (Velocity){0, -1};
+        break;
+    case 3:
+        state.snake.v = (Velocity){0, 1};
+        break;
+    default:
+        break;
     }
 
     // Move body
@@ -84,18 +91,10 @@ void engine_step(int action) {
     }
 }
 
-int engine_is_done(void) {
-    return state.gameOver;
-}
+int engine_is_done(void) { return state.gameOver; }
 
-int engine_get_score(void) {
-    return state.score;
-}
+int engine_get_score(void) { return state.score; }
 
-int engine_get_reward(void) {
-    return last_reward;
-}
+int engine_get_reward(void) { return last_reward; }
 
-GameState* engine_get_state(void) {
-    return &state;
-}
+GameState *engine_get_state(void) { return &state; }

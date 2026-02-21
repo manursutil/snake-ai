@@ -9,7 +9,7 @@
 #define MAX_LENGTH 500
 
 typedef struct {
-	int vx, vy;
+    int vx, vy;
 } Velocity;
 
 typedef struct {
@@ -18,17 +18,17 @@ typedef struct {
 } Vector2i;
 
 typedef struct {
-	Vector2i pos;
+    Vector2i pos;
 } SnakeSegment;
 
 typedef struct {
-	SnakeSegment body[MAX_LENGTH];
-	int length;
-	Velocity v;
+    SnakeSegment body[MAX_LENGTH];
+    int length;
+    Velocity v;
 } Snake;
 
 typedef struct {
-	int x, y, w, h;
+    int x, y, w, h;
 } Apple;
 
 typedef struct {
@@ -46,6 +46,6 @@ int engine_is_done(void);
 int engine_get_score(void);
 int engine_get_reward(void);
 
-GameState* engine_get_state(void);
+GameState *engine_get_state(void);
 
 #endif

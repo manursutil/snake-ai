@@ -8,39 +8,35 @@ CELL = 20
 WIDTH = 900
 HEIGHT = 600
 
+
 class Vector2i(Structure):
-    _fields_ = [("x", c_int),
-                ("y", c_int)]
+    _fields_ = [("x", c_int), ("y", c_int)]
+
 
 class SnakeSegment(Structure):
     _fields_ = [("pos", Vector2i)]
 
+
 class Velocity(Structure):
-    _fields_ = [("vx", c_int),
-                ("vy", c_int)]
+    _fields_ = [("vx", c_int), ("vy", c_int)]
+
 
 class Snake(Structure):
-    _fields_ = [
-        ("body", SnakeSegment * MAX_LENGTH),
-        ("length", c_int),
-        ("v", Velocity)
-    ]
+    _fields_ = [("body", SnakeSegment * MAX_LENGTH), ("length", c_int), ("v", Velocity)]
+
 
 class Apple(Structure):
-    _fields_ = [
-        ("x", c_int),
-        ("y", c_int),
-        ("w", c_int),
-        ("h", c_int)
-    ]
+    _fields_ = [("x", c_int), ("y", c_int), ("w", c_int), ("h", c_int)]
+
 
 class GameState(Structure):
     _fields_ = [
         ("snake", Snake),
         ("apple", Apple),
         ("gameOver", c_int),
-        ("score", c_int)
+        ("score", c_int),
     ]
+
 
 lib.engine_init.argtypes = [c_int]
 lib.engine_reset.argtypes = []
@@ -50,12 +46,15 @@ lib.engine_get_score.restype = c_int
 lib.engine_get_reward.restype = c_int
 lib.engine_get_state.restype = POINTER(GameState)
 
+
 def state():
     return lib.engine_get_state().contents
+
 
 def assert_on_grid(x, y):
     assert x % CELL == 0, f"x is off-grid: {x}"
     assert y % CELL == 0, f"y is off-grid: {y}"
+
 
 def run_checks():
     lib.engine_init(42)
@@ -84,18 +83,20 @@ def run_checks():
     s2 = state()
     x2 = s2.snake.body[0].pos.x
     y2 = s2.snake.body[0].pos.y
-    
+
     reward = lib.engine_get_reward()
 
     assert x2 == x1 + CELL and y2 == y1, "head did not move into apple cell"
-    assert s2.score == score_before + 1, f"expected score {score_before + 1}, got {s2.score}"
+    assert s2.score == score_before + 1, (
+        f"expected score {score_before + 1}, got {s2.score}"
+    )
     assert s2.snake.length == length_before + 1, (
         f"expected length {length_before + 1}, got {s2.snake.length}"
     )
     assert not s2.gameOver, "game should continue after eating apple"
     assert reward == 1, f"expected reward = 1, got reward = {reward}"
     assert_on_grid(x2, y2)
-    
+
     # Correct Game Over Testing (Out of bounds)
     lib.engine_reset()
     s3 = state()
@@ -115,6 +116,7 @@ def run_checks():
     )
 
     print("PASS: engine moves on grid and eats apples correctly.")
+
 
 if __name__ == "__main__":
     run_checks()
