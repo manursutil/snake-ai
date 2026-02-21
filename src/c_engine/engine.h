@@ -1,8 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "raymath.h"
-
 #define WIDTH 900
 #define HEIGHT 600
 #define FPS 60
@@ -13,6 +11,11 @@
 typedef struct {
 	int vx, vy;
 } Velocity;
+
+typedef struct {
+    float x;
+    float y;
+} Vector2;
 
 typedef struct {
 	Vector2 pos;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-GameState state;
+static GameState state;
 
 static Vector2 getApplePosition(void) {
     int cols = WIDTH / CELL;
@@ -58,7 +58,7 @@ void engine_step(int action) {
 
     // Check collision with itself
     for (int i = 1; i < state.snake.length; i++) {
-        if (Vector2Equals(head, state.snake.body[i].pos)) {
+        if (head.x == state.snake.body[i].pos.x && head.y == state.snake.body[i].pos.y) {
             state.gameOver = 1;
             return;
         }
