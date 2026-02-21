@@ -4,19 +4,22 @@
 
 static GameState state;
 
-static Vector2 getApplePosition(void) {
+static Vector2i getApplePosition(void) {
     int cols = WIDTH / CELL;
     int rows = HEIGHT / CELL;
     int posX = (rand() % cols) * CELL;
     int posY = (rand() % rows) * CELL;
-    return (Vector2){(float)posX, (float)posY};
+    return (Vector2i){posX, posY};
 }
 
 void engine_reset(void) {
     state.snake.length = 1;
-    state.snake.body[0].pos = (Vector2){(((float)WIDTH / 2) / CELL) * CELL, (((float)HEIGHT / 2) / CELL) * CELL};
+    state.snake.body[0].pos = (Vector2i){
+        (WIDTH / CELL / 2) * CELL,
+        (HEIGHT / CELL / 2) * CELL
+    };
     state.snake.v = (Velocity){1, 0};
-    Vector2 applePos = getApplePosition();
+    Vector2i applePos = getApplePosition();
     state.apple.x = (int)applePos.x;
     state.apple.y = (int)applePos.y;
     state.apple.w = CELL;
@@ -48,7 +51,7 @@ void engine_step(int action) {
     state.snake.body[0].pos.x += state.snake.v.vx * CELL;
     state.snake.body[0].pos.y += state.snake.v.vy * CELL;
 
-    Vector2 head = state.snake.body[0].pos;
+    Vector2i head = state.snake.body[0].pos;
 
     // Wall collision
     if (head.x < 0 || head.x >= WIDTH || head.y < 0 || head.y >= HEIGHT) {
@@ -70,7 +73,7 @@ void engine_step(int action) {
             state.snake.body[state.snake.length] = state.snake.body[state.snake.length - 1];
             state.snake.length++;
         }
-        Vector2 applePos = getApplePosition();
+        Vector2i applePos = getApplePosition();
         state.apple.x = (int)applePos.x;
         state.apple.y = (int)applePos.y;
         state.score++;

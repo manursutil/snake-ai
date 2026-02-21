@@ -13,12 +13,12 @@ typedef struct {
 } Velocity;
 
 typedef struct {
-    float x;
-    float y;
-} Vector2;
+    int x;
+    int y;
+} Vector2i;
 
 typedef struct {
-	Vector2 pos;
+	Vector2i pos;
 } SnakeSegment;
 
 typedef struct {
