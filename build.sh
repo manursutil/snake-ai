@@ -33,10 +33,16 @@ if [ "$MODE" = "game" ]; then
 elif [ "$MODE" = "engine" ]; then
     echo "Building shared library for Python..."
 
+    if ! pkg-config --exists raylib; then
+        echo "Error: raylib not found via pkg-config." >&2
+        exit 1
+    fi
+
     gcc \
         -Wall -Wextra -Wpedantic -std=c11 \
         -fPIC -shared \
         "$ROOT_DIR/src/c_engine/engine.c" \
+        $(pkg-config --cflags --libs raylib) \
         -o "$BUILD_DIR/libsnake.so"
 
     echo "Built: $BUILD_DIR/libsnake.so"

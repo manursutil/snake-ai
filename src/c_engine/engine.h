@@ -48,4 +48,8 @@ int engine_get_reward(void);
 
 GameState *engine_get_state(void);
 
+void engine_render_init(void);
+void engine_render(void);
+void engine_render_close(void);
+
 #endif

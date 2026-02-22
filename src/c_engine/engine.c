@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include "raylib.h"
+
 static GameState state;
 static int last_reward = 0;
 
@@ -101,3 +103,41 @@ int engine_get_score(void) { return state.score; }
 int engine_get_reward(void) { return last_reward; }
 
 GameState *engine_get_state(void) { return &state; }
+
+void engine_render_init(void) {
+    InitWindow(WIDTH, HEIGHT, "Snake");
+    SetTargetFPS(FPS);
+}
+
+void engine_render(void) {
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
+
+    GameState *s = engine_get_state();
+
+    // Draw grid
+    for (int x = 0; x <= WIDTH; x += CELL)
+        DrawLine(x, 0, x, HEIGHT, LIGHTGRAY);
+    for (int y = 0; y <= HEIGHT; y += CELL)
+        DrawLine(0, y, WIDTH, y, LIGHTGRAY);
+
+    // Draw snake
+    for (int i = 0; i < s->snake.length; i++) {
+        DrawRectangle((int)s->snake.body[i].pos.x, (int)s->snake.body[i].pos.y, CELL, CELL,
+                        i == 0 ? DARKBLUE : BLUE);
+    }
+
+    // Draw apple
+    DrawRectangle(s->apple.x, s->apple.y, s->apple.w, s->apple.h, RED);
+
+    DrawText(TextFormat("Score: %d", s->score), 10, 10, 20, BLACK);
+
+    if (s->gameOver)
+        DrawText("Game Over", WIDTH / 2 - 80, HEIGHT / 2 - 20, 40, RED);
+
+    EndDrawing();
+}
+
+void engine_render_close(void) {
+    CloseWindow();
+}
