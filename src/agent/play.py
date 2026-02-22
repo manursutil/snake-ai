@@ -1,6 +1,6 @@
 import torch
 from snake_env import SnakeEnv
-from model import DQN
+from model import DQN # type: ignore
 
 
 device = torch.device("cpu")

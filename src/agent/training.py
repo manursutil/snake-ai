@@ -7,7 +7,7 @@ import math
 import matplotlib.pyplot as plt
 
 from snake_env import SnakeEnv
-from model import DQN
+from model import DQN # type: ignore
 
 n_observations = 11
 n_actions = 4
