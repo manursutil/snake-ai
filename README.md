@@ -49,7 +49,7 @@ build/libsnake.so
 ### 3. Run Python engine test environment
 
 ```bash
-python3 src/python_ai/test_env.py
+python3 src/agent/test_env.py
 ```
 
 ### 4. Run C engine tests
@@ -61,7 +61,7 @@ python3 src/python_ai/test_env.py
 ### 5. Train the DQN agent
 
 ```bash
-python3 src/python_ai/training.py
+python3 src/agent/training.py
 ```
 
 Training saves weights to:
@@ -75,7 +75,7 @@ model/snake_dqn.pt
 Make sure `model/snake_dqn.pt` exists, then run:
 
 ```bash
-python3 src/python_ai/play.py
+python3 src/agent/play.py
 ```
 
 ## Build script modes
